@@ -7,7 +7,7 @@ export function transformTransaction(
     let payee = transaction.description;
 
     if (transaction.type === "TRANSFER" && transaction.meta.other_account != null) {
-        const prefix = amount < 0
+        const prefix = transaction.amount < 0
             ? "To: "
             : "From: "
         payee = prefix + transaction.meta.other_account;
