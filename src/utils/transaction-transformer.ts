@@ -25,6 +25,7 @@ export function transformPendingTransaction(
     transaction: PendingTransaction,
 ): ActualTransaction {
     return {
+        imported_id: "",
         date: new Date(transaction.date),
         amount: Math.round(transaction.amount * 100),
         payee_name: transaction.description,
