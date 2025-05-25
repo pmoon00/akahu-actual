@@ -18,6 +18,7 @@ export function transformTransaction(
         amount: Math.round(transaction.amount * 100),
         payee_name: payee,
         notes: formatTransactionNotes(transaction),
+        cleared: true,
     };
 }
 
@@ -32,6 +33,7 @@ export function transformPendingTransaction(
         notes: `${transaction.type} • ${transaction.description || ""}`
             .replace(/\s+•\s+$/, "")
             .replace(/\s+•\s+•\s+/, " • "),
+        cleared: false,
     };
 }
 

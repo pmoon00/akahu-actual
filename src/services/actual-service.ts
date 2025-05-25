@@ -7,6 +7,7 @@ export interface ActualTransaction {
     amount: number;
     payee_name: string;
     notes: string;
+    cleared: boolean;
 }
 
 export class ActualService {
