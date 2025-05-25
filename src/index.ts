@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import type { TransactionQueryParams, EnrichedTransaction } from "akahu";
+import type { TransactionQueryParams, EnrichedTransaction, PendingTransaction } from "akahu";
 import { AkahuService } from "./services/akahu-service.js";
 import { ActualService } from "./services/actual-service.js";
 import { transformTransaction, transformPendingTransaction } from "./utils/transaction-transformer.js";
