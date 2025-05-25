@@ -1,4 +1,4 @@
-import type { EnrichedTransaction } from "akahu";
+import type { EnrichedTransaction, PendingTransaction } from "akahu";
 import type { ActualTransaction } from "../services/actual-service.ts";
 
 export function transformTransaction(
@@ -18,6 +18,19 @@ export function transformTransaction(
         amount: Math.round(transaction.amount * 100),
         payee_name: payee,
         notes: formatTransactionNotes(transaction),
+    };
+}
+
+export function transformPendingTransaction(
+    transaction: PendingTransaction,
+): ActualTransaction {
+    return {
+        date: new Date(transaction.date),
+        amount: Math.round(transaction.amount * 100),
+        payee_name: transaction.description,
+        notes: `${transaction.type} • ${transaction.description || ""}`
+            .replace(/\s+•\s+$/, "")
+            .replace(/\s+•\s+•\s+/, " • "),
     };
 }
 

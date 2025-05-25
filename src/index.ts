@@ -2,7 +2,7 @@ import { config } from "dotenv";
 import type { TransactionQueryParams, EnrichedTransaction } from "akahu";
 import { AkahuService } from "./services/akahu-service.js";
 import { ActualService } from "./services/actual-service.js";
-import { transformTransaction } from "./utils/transaction-transformer.js";
+import { transformTransaction, transformPendingTransaction } from "./utils/transaction-transformer.js";
 import { validateEnv, ValidatedConfig } from "./utils/env-validator.js";
 
 async function main() {
@@ -41,6 +41,22 @@ async function main() {
             const accountTransactions = transactions
                 .filter((t: EnrichedTransaction) => t._account === akahuId)
                 .map(transformTransaction);
+
+            await actualService.importTransactions(
+                actualId,
+                accountTransactions,
+            );
+        }
+
+        // Fetch pending transactions
+        const pendingTransactions = await akahuService.getPendingTransactions();
+
+        for (const [akahuId, actualId] of Object.entries(
+            conf.accountMappings,
+        )) {
+            const accountTransactions = pendingTransactions
+                .filter((t: PendingTransaction) => t._account === akahuId)
+                .map(transformPendingTransaction);
 
             await actualService.importTransactions(
                 actualId,
