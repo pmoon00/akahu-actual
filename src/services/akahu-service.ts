@@ -71,6 +71,6 @@ export class AkahuService {
             items: PendingTransaction[];
         };
 
-        return ...data.items;
+        return [...data.items];
     }
 }
